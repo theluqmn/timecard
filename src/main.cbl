@@ -17,7 +17,11 @@
        01 TP-STR-A                             PIC X(32).
 
        PROCEDURE DIVISION.
-       DISPLAY ESC UND "Timecard" ESC RES.
+       CALL "SYSTEM" USING "clear".
+       DISPLAY ESC BLD "Timecard" ESC RES.
+       DISPLAY "A CLI-based task management system built using COBOL!".
+       DISPLAY " ".
+       DISPLAY ESC GRY "Basic commands: 'help', 'exit'." ESC RES.
        PERFORM MAIN.
        CLI-HANDLER.
            DISPLAY "> " WITH NO ADVANCING.
@@ -25,9 +29,9 @@
            MOVE FUNCTION LOWER-CASE(TP-STR-A) TO CLI-INPUT.
 
            IF CLI-INPUT = "exit" THEN
-               DISPLAY ESC BLU "exiting..." ESC RES
+               DISPLAY ESC BLU "Exiting program..." ESC RES
            ELSE
-               DISPLAY ESC RED "unknown command." ESC RES
+               DISPLAY ESC RED "Unknown command!" ESC RES
            END-IF.
        MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
