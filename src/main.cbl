@@ -28,9 +28,30 @@
            ACCEPT TP-STR-A.
            CALL "SYSTEM" USING "clear".
            MOVE FUNCTION LOWER-CASE(TP-STR-A) TO CLI-INPUT.
-   
-           "                                                      │".
+
+           IF CLI-INPUT = "exit" THEN
+               DISPLAY ESC BLU "Exiting..." ESC RES
+           ELSE IF CLI-INPUT  = "help" THEN
+               PERFORM SCREEN-HELP
+           ELSE
+               DISPLAY ESC RED "Unknown command!" ESC RES
+           END-IF.
+
+       SCREEN-HELP.
+           PERFORM BORDER-TOP.
+           DISPLAY "│ " ESC UND BLD WHT "HELP" ESC RES
+           "                                                          "
+           "│".
+           PERFORM BORDER-EMPTY.
+           DISPLAY
+           "│ GitHub: https://github.com/theluqmn/timecard     "
+           ESC RES
+           "             │".
+           PERFORM BORDER-EMPTY.
            DISPLAY 
+           "│ - 'help'           - Displays this message       "
+           "             │".
+           
            PERFORM BORDER-BOT.
 
        BORDER-TOP.
@@ -53,6 +74,9 @@
            DISPLAY "─────────" WITH NO ADVANCING.
            DISPLAY "─────────" WITH NO ADVANCING.
            DISPLAY "┘".
+       BORDER-EMPTY.
+           DISPLAY "│                                        "
+           "                       │".
 
        MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
