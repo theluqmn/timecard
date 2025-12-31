@@ -5,34 +5,55 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        01 CLI-INPUT                            PIC X(32).
-      *ansi colours
-       01 ESC                                  PIC X VALUE X'1B'.
-       01 RES                                  PIC X(3) VALUE "[0m".
-       01 GRY                                  PIC X(4) VALUE "[30m".
-       01 UND                                  PIC X(6) VALUE "[4;97m".
-       01 BLD                                  PIC X(6) VALUE "[1;37m".
-       01 RED                                  PIC X(4) VALUE "[31m".
-       01 BLU                                  PIC X(4) VALUE "[34m".
-      *temporary variables
+      *ANSI FORMATTING
+       01 ESC PIC X(2) VALUE X'1B5B'.  01 RES PIC X(2) VALUE "0m".
+       01 UND PIC X(2) VALUE "4;".     01 BLD PIC X(2) VALUE "1;".
+       01 BLC PIC X(3) VALUE "30m".    01 WHT PIC X(3) VALUE "37m".
+       01 RED PIC X(3) VALUE "31m".    01 BLU PIC X(3) VALUE "34m".
+       01 GRY PIC X(3) VALUE "30m".
+       01 BG-WHT PIC X(3) VALUE "47m".
+      *TEMPORARY VARIABLES
        01 TP-STR-A                             PIC X(32).
 
        PROCEDURE DIVISION.
        CALL "SYSTEM" USING "clear".
-       DISPLAY ESC BLD "Timecard" ESC RES.
+       DISPLAY ESC BG-WHT ESC BLD BLC "TIMECARD" ESC RES.
        DISPLAY "A CLI-based task management system built using COBOL!".
        DISPLAY " ".
-       DISPLAY ESC GRY "Basic commands: 'help', 'exit'." ESC RES.
+       DISPLAY "Basics: 'setup', 'help', 'exit'.".
        PERFORM MAIN.
+       
        CLI-HANDLER.
            DISPLAY "> " WITH NO ADVANCING.
            ACCEPT TP-STR-A.
+           CALL "SYSTEM" USING "clear".
            MOVE FUNCTION LOWER-CASE(TP-STR-A) TO CLI-INPUT.
+   
+           "                                                      │".
+           DISPLAY 
+           PERFORM BORDER-BOT.
 
-           IF CLI-INPUT = "exit" THEN
-               DISPLAY ESC BLU "Exiting program..." ESC RES
-           ELSE
-               DISPLAY ESC RED "Unknown command!" ESC RES
-           END-IF.
+       BORDER-TOP.
+           DISPLAY "┌" WITH NO ADVANCING.
+           DISPLAY "─────────" WITH NO ADVANCING.
+           DISPLAY "─────────" WITH NO ADVANCING.
+           DISPLAY "─────────" WITH NO ADVANCING.
+           DISPLAY "─────────" WITH NO ADVANCING.
+           DISPLAY "─────────" WITH NO ADVANCING.
+           DISPLAY "─────────" WITH NO ADVANCING.
+           DISPLAY "─────────" WITH NO ADVANCING.
+           DISPLAY "┐".
+       BORDER-BOT.
+           DISPLAY "└" WITH NO ADVANCING.
+           DISPLAY "─────────" WITH NO ADVANCING.
+           DISPLAY "─────────" WITH NO ADVANCING.
+           DISPLAY "─────────" WITH NO ADVANCING.
+           DISPLAY "─────────" WITH NO ADVANCING.
+           DISPLAY "─────────" WITH NO ADVANCING.
+           DISPLAY "─────────" WITH NO ADVANCING.
+           DISPLAY "─────────" WITH NO ADVANCING.
+           DISPLAY "┘".
+
        MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.
