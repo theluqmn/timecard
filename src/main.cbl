@@ -4,11 +4,13 @@
 
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-       01 CLI-INPUT PIC X(48).
       *SYSTEM VARIABLES
+       01 CLI-INPUT PIC X(48).         01 CLI-ACCEPT PIC X(48).
        01 OS-NAME PIC X(24).           01 OS-CLEAR-CMD PIC X(12).
+
       *TEMPORARY VARIABLES
        01 TP-STR-A PIC X(48).          01 TP-STR-B PIC X(48).
+
       *ANSI FORMATTING
        01 ESC PIC X(2) VALUE X'1B5B'.  01 RES PIC X(2) VALUE "0m".
        01 UND PIC X(2) VALUE "4;".     01 BLD PIC X(2) VALUE "1;".
@@ -21,12 +23,9 @@
       *INITIALISATION
        ACCEPT OS-NAME FROM ENVIRONMENT "OS".
        EVALUATE TRUE
-           WHEN OS-NAME(1:5) = "Windows"
-               MOVE "cls" TO OS-CLEAR-CMD
-           WHEN OTHER
-               MOVE "clear" TO OS-CLEAR-CMD
+           WHEN OS-NAME(1:5) = "Windows" MOVE "cls" TO OS-CLEAR-CMD
+           WHEN OTHER MOVE "clear" TO OS-CLEAR-CMD
        END-EVALUATE.
-      
 
        CALL "SYSTEM" USING "clear".
        DISPLAY ESC BG-WHT ESC BLD BLC "TIMECARD" ESC RES.
@@ -40,9 +39,9 @@
 
        CLI-HANDLER.
            DISPLAY "> " WITH NO ADVANCING.
-           ACCEPT TP-STR-A.
+           ACCEPT CLI-ACCEPT.
            PERFORM CLI-CLEAR.
-           MOVE FUNCTION LOWER-CASE(TP-STR-A) TO CLI-INPUT.
+           MOVE FUNCTION LOWER-CASE(CLI-ACCEPT) TO CLI-INPUT.
 
            IF CLI-INPUT = "exit" THEN
                DISPLAY ESC BLU "Exiting..." ESC RES
