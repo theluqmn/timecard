@@ -1,0 +1,18 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. CLI-CLEAR.
+       AUTHOR. theluqmn.
+
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 OS-NAME PIC X(24).
+       01 OS-CLEAR-CMD PIC X(12).
+
+       PROCEDURE DIVISION.
+       ACCEPT OS-NAME FROM ENVIRONMENT "OS".
+       EVALUATE TRUE
+           WHEN OS-NAME(1:5) = "Windows" MOVE "cls" TO OS-CLEAR-CMD
+           WHEN OTHER MOVE "clear" TO OS-CLEAR-CMD
+       END-EVALUATE.
+       CALL "SYSTEM" USING "clear".
+       GOBACK.
+       
