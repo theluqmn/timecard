@@ -19,13 +19,11 @@ echo -e "v1.0 - https://github.com/theluqmn/cobweb"
 echo
 
 # INPUT VALIDATION
-
 if [ ! -d "$directory" ]; then
     echo
     echo -e "${RED}[!] Nonexistent directory '$directory'.${RES}"
     exit 1
 fi
-
 if [ -z "$1" ]; then
     echo -e "${YEL}[*] No output name provided!${RES}   Defaulting to 'main'.${RES}"
 fi
@@ -44,8 +42,6 @@ if [ $cbl_files_count -eq 0 ]; then
     echo "${BLU}[i] No COBOL files found.${RES}"
     exit 1
 fi
-
-
 if [ $cbl_files_count -eq 1 ]; then
     echo -e "${BLU}[i] Located ${cbl_files_count} file:${RES} ${cbl_files[@]}"
 else
