@@ -84,6 +84,8 @@
                DISPLAY ESC BLU "[i] Exiting..." ESC RES
            ELSE IF CLI-INPUT  = "help" THEN
                PERFORM SCREEN-HELP
+           ELSE IF CLI-INPUT  = "add" THEN
+               PERFORM SCREEN-ADD
            ELSE
                DISPLAY ESC RED "[!] Unknown command!" ESC RES
            END-IF.
@@ -112,6 +114,17 @@
            "│ - 'exit'           - Exits the program           "
            "             │".
            CALL "BORDER-BOT".
+
+       SCREEN-ADD.
+           PERFORM CLI-HEADER.
+           CALL "BORDER-TOP".
+           DISPLAY "│ " ESC UND BLD WHT "ADD A NEW TASK" ESC RES
+           "                                                "
+           "│".
+           CALL "BORDER-EMPTY".
+           DISPLAY 
+           "│ - 'help'           - Displays this message       "
+           "             │".
 
        MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
