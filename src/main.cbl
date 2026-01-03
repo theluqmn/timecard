@@ -30,6 +30,7 @@
            DISPLAY "> " WITH NO ADVANCING.
            ACCEPT CLI-ACCEPT.
            MOVE FUNCTION LOWER-CASE(CLI-ACCEPT) TO CLI-INPUT.
+           CALL "CLI-CLEAR".
 
            IF CLI-INPUT = "exit" THEN
                DISPLAY ESC BLU "Exiting..." ESC RES
@@ -40,47 +41,23 @@
            END-IF.
 
        SCREEN-HELP.
-           PERFORM BORDER-TOP.
+           CALL "BORDER-TOP".
            DISPLAY "│ " ESC UND BLD WHT "HELP" ESC RES
            "                                                          "
            "│".
-           PERFORM BORDER-EMPTY.
+           CALL "BORDER-EMPTY".
            DISPLAY
            "│ GitHub: https://github.com/theluqmn/timecard     "
            ESC RES
            "             │".
-           PERFORM BORDER-EMPTY.
+           CALL "BORDER-EMPTY".
            DISPLAY 
            "│ - 'help'           - Displays this message       "
            "             │".
            DISPLAY 
            "│ - 'exit'           - Exits the program           "
            "             │".
-           PERFORM BORDER-BOT.
-
-       BORDER-TOP.
-           DISPLAY "┌" WITH NO ADVANCING.
-           DISPLAY "─────────" WITH NO ADVANCING.
-           DISPLAY "─────────" WITH NO ADVANCING.
-           DISPLAY "─────────" WITH NO ADVANCING.
-           DISPLAY "─────────" WITH NO ADVANCING.
-           DISPLAY "─────────" WITH NO ADVANCING.
-           DISPLAY "─────────" WITH NO ADVANCING.
-           DISPLAY "─────────" WITH NO ADVANCING.
-           DISPLAY "┐".
-       BORDER-BOT.
-           DISPLAY "└" WITH NO ADVANCING.
-           DISPLAY "─────────" WITH NO ADVANCING.
-           DISPLAY "─────────" WITH NO ADVANCING.
-           DISPLAY "─────────" WITH NO ADVANCING.
-           DISPLAY "─────────" WITH NO ADVANCING.
-           DISPLAY "─────────" WITH NO ADVANCING.
-           DISPLAY "─────────" WITH NO ADVANCING.
-           DISPLAY "─────────" WITH NO ADVANCING.
-           DISPLAY "┘".
-       BORDER-EMPTY.
-           DISPLAY "│                                        "
-           "                       │".
+           CALL "BORDER-BOT".
 
        MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
