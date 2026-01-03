@@ -61,7 +61,7 @@ if command -v cobc >/dev/null 2>&1; then # VERIFY IF GNUCOBOL INSTALLED
         echo -e "${RED}[!] No main file found (tried: ${main_base}.cbl/cob/CBL/COB)${RES}"
         exit 1
     fi
-    echo -e "${BLU}[i] Located main: ${main_file}${RES}"
+    echo -e "${BLU}[i] Located main: ${RES}${main_file}"
 
 
     # COMPILATION
